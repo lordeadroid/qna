@@ -3,33 +3,35 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Game from './Game';
 
 const HomePage = (): React.JSX.Element => {
+  const logoName: string = 'kyu-n-a';
   const [clicked, setClicked] = useState(false);
 
-  const handleClick = (): void => {
+  const handleClick = (): undefined => {
     setClicked(true);
   };
 
-  const insideItem: React.JSX.Element = clicked ? (
-    <React.Fragment>{<Game />}</React.Fragment>
-  ) : (
-    <Pressable onPress={handleClick}>
-      <View
-        type="button"
-        value="Play"
-        id="play-button"
-        style={styles.playButton}
-      >
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Start</Text>
+  const game = (): React.JSX.Element => {
+    return <Game />;
+  };
+
+  const startScreen = (): React.JSX.Element => {
+    return (
+      <Pressable onPress={handleClick}>
+        <View type="button" value="Play" style={styles.playButton}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Start</Text>
+          </View>
         </View>
-      </View>
-    </Pressable>
-  );
+      </Pressable>
+    );
+  };
+
+  const homeScreen: React.JSX.Element = clicked ? game() : startScreen();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Kyu-n-A</Text>
-      {insideItem}
+      <Text style={styles.heading}>{logoName}</Text>
+      {homeScreen}
     </View>
   );
 };
